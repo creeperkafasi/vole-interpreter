@@ -80,7 +80,7 @@ fn main() {
                         registers[r as usize] = registers[s as usize] ^ registers[t as usize];
                     }
                     [0xA, r, 0, x] => {
-                        registers[r as usize] = registers[r as usize].rotate_left(x as u32);
+                        registers[r as usize] = registers[r as usize].rotate_right(x as u32);
                     }
                     [0xB, r, x, y] => {
                         if registers[r as usize] == registers[0] {
