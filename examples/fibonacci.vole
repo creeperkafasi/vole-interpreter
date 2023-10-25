@@ -1,0 +1,23 @@
+// Load number 1 into registers 0x1 and 0x2
+0x2101
+0x2201
+
+// Print the value of registers 0x1 and 0x2
+0xD001
+0xD002
+
+// Add the values of registers 0x1 and 0x2 as
+// two's complement numbers and load the result
+// into register 0x3
+0x5312
+
+// Print the value of reg. 0x3
+0xD003
+
+// Copy the value of reg. 0x2 into reg. 0x1
+0x4021
+// Copy the value of reg. 0x3 into reg. 0x2
+0x4032
+
+// Jump to instruction index 4 (5th instruction)
+0xB004

@@ -1,0 +1,15 @@
+// 5. registera 0x37 (55) sayısını yaz
+0x2537
+
+// 6. registera 0x23 (35) sayısını yaz
+0x2623
+
+// 5. ve 6. registerları two's complement olarak topla ve sonucu 7. registera yaz
+0x5756
+
+// D ve E işlemleri pdf'te yok, ekrana yazdırmak için ekledim
+// Ekrana 7. registerın değerini yazdır
+0xD007
+
+// Çık
+0xC000
