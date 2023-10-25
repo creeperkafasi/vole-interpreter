@@ -92,13 +92,33 @@ fn main() {
                         break;
                     }
                     // Extended ops for printing
-                    [0xD, 0, 0, r] => {
-                        println!("{}", registers[r as usize])
-                    }
+                    [0xD, m, 0, r] => unsafe {
+                        match m {
+                            0xB => println!("{:b}", registers[r as usize]),
+                            0xC => println!("{}", char::from_u32_unchecked(registers[r as usize])),
+                            0xE => println!("{:x}", registers[r as usize]),
+                            0xF => println!("{}", transmute::<u32, f32>(registers[r as usize])),
+                            _ => println!("{}", registers[r as usize]),
+                        }
+                    },
 
-                    [0xE, 0, x, y] => {
+                    [0xE, m, x, y] => unsafe {
+                        let loc = ((x as usize) << 4) + y as usize;
+                        match m {
+                            0xB => println!("{:b}", memory[loc]),
+                            0xC => println!(
+                                "{}",
+                                transmute::<[u8;4], char>(memory[loc..loc+4].try_into().unwrap())
+                            ),
+                            0xE => println!("{:x}", memory[((x as usize) << 4) + y as usize]),
+                            0xF => println!(
+                                "{}",
+                                transmute::<[u8;4], f32>(memory[loc..loc+4].try_into().unwrap())
+                            ),
+                            _ => println!("{}", memory[((x as usize) << 4) + y as usize]),
+                        }
                         println!("{}", memory[((x as usize) << 4) + y as usize])
-                    }
+                    },
                     _ => {
                         panic!("Invalid Operation At Line {}: {}", i, 0)
                     }
