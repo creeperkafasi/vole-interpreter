@@ -1,13 +1,13 @@
 use std::{env::args, fs, mem::transmute};
 
 fn main() {
-    let mut memory: [u8; 256] = [0; 256];
+    let mut memory = vec![0; 256];
     let mut registers: [u32; 16] = [0; 16];
 
     let filename: String;
     match args().nth(1) {
         Some(s) => filename = s.to_string(),
-        None => panic!(""),
+        None => panic!("Please enter a valid file name to run."),
     };
 
     match fs::read_to_string(filename) {
@@ -40,9 +40,11 @@ fn main() {
                 .flatten()
                 .collect::<Vec<u8>>();
 
+            program.clone_into(&mut memory);
+
             let mut i = 0;
             loop {
-                let line = &program[i..i + 4];
+                let line = &memory[i..i + 4];
                 match *line {
                     [0x1, r, x, y] => {
                         registers[r as usize] = memory[((x as usize) << 4) + y as usize] as u32;
